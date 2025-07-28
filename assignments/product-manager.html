@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    input, select, button {
+      margin: 5px 0;
+      padding: 8px;
+      width: 200px;
+    }
+    .section {
+      margin-top: 20px;
+    }
+    ul {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Product Manager</h2>
+
+  <div>
+    <label>Product Name:</label><br>
+    <input type="text" id="name"><br>
+
+    <label>Category:</label><br>
+    <input type="text" id="category"><br>
+
+    <label>Price:</label><br>
+    <input type="number" id="price"><br>
+
+    <button onclick="handleAddProduct()">Add Product</button>
+  </div>
+
+  <div class="section">
+    <h3>All Products</h3>
+    <ul id="productList"></ul>
+  </div>
+
+  <div class="section">
+    <h3>Grouped by Category</h3>
+    <div id="groupedProducts"></div>
+  </div>
+
+  <script>
+    const productManager = {
+      products: [],
+
+      addProduct: function(product) {
+        if (product.name && product.category && typeof product.price === "number" && !isNaN(product.price)) {
+          this.products.push(product);
+        } else {
+          alert("Please enter valid product data.");
+        }
+      },
+
+      groupByCategory: function() {
+        return this.products.reduce((grouped, product) => {
+          const category = product.category;
+          if (!grouped[category]) {
+            grouped[category] = [];
+          }
+          grouped[category].push(product);
+          return grouped;
+        }, {});
+      }
+    };
+
+    function handleAddProduct() {
+      const name = document.getElementById("name").value.trim();
+      const category = document.getElementById("category").value.trim();
+      const price = parseFloat(document.getElementById("price").value);
+
+      const product = { name, category, price };
+      productManager.addProduct(product);
+
+      document.getElementById("name").value = "";
+      document.getElementById("category").value = "";
+      document.getElementById("price").value = "";
+
+      displayProducts();
+      displayGroupedProducts();
+    }
+
+    function displayProducts() {
+      const list = document.getElementById("productList");
+      list.innerHTML = "";
+
+      productManager.products.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `${p.name} (${p.category}) - $${p.price.toFixed(2)}`;
+        list.appendChild(li);
+      });
+    }
+
+    function displayGroupedProducts() {
+      const grouped = productManager.groupByCategory();
+      const container = document.getElementById("groupedProducts");
+      container.innerHTML = "";
+
+      for (const category in grouped) {
+        const title = document.createElement("h4");
+        title.textContent = category;
+        container.appendChild(title);
+
+        const ul = document.createElement("ul");
+        grouped[category].forEach(p => {
+          const li = document.createElement("li");
+          li.textContent = `${p.name} - $${p.price.toFixed(2)}`;
+          ul.appendChild(li);
+        });
+
+        container.appendChild(ul);
+      }
+    }
+  </script>
+
+</body>
+</html>

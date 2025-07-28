@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reverse Array (No reverse())</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    input, button {
+      padding: 10px;
+      width: 300px;
+      margin-top: 10px;
+    }
+    .output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Reverse Array Without Using reverse()</h2>
+
+  <label for="arrayInput">Enter array items (comma-separated):</label><br>
+  <input type="text" id="arrayInput" placeholder="e.g., 1,2,3,4,5"><br>
+  <button onclick="handleReverse()">Reverse Array</button>
+
+  <div class="output">
+    <p><strong>Original Array:</strong> <span id="originalArray"></span></p>
+    <p><strong>Reversed Array:</strong> <span id="reversedArray"></span></p>
+  </div>
+
+  <script>
+    function reverseArray(arr) {
+      const reversed = [];
+      for (let i = arr.length - 1; i >= 0; i--) {
+        reversed.push(arr[i]);
+      }
+      return reversed;
+    }
+
+    function handleReverse() {
+      const input = document.getElementById("arrayInput").value;
+      const arr = input.split(',').map(item => item.trim());
+
+      const reversed = reverseArray(arr);
+
+      document.getElementById("originalArray").textContent = `[ ${arr.join(", ")} ]`;
+      document.getElementById("reversedArray").textContent = `[ ${reversed.join(", ")} ]`;
+    }
+  </script>
+
+</body>
+</html>

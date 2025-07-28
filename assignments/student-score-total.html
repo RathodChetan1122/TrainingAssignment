@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Score Total</title>
+</head>
+<body>
+  <h2>Enter Student Details</h2>
+
+  <form id="studentForm" onsubmit="addStudent(event)">
+    <label>Name:</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label>Score:</label><br>
+    <input type="number" id="score" required><br><br>
+
+    <button type="submit">Add Student</button>
+    <button type="button" onclick="calculateTotal()">Calculate Total Score</button>
+  </form>
+
+  <hr>
+  <div id="output"></div>
+
+  <script>
+    const students = [];
+
+    function addStudent(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const score = parseFloat(document.getElementById('score').value);
+
+      students.push({ name, score });
+      document.getElementById('output').innerHTML = `✅ Student "${name}" with score ${score} added.<br>`;
+      
+      // Clear inputs
+      document.getElementById('studentForm').reset();
+    }
+
+    function calculateTotal() {
+      const total = students.reduce((sum, student) => sum + student.score, 0);
+      document.getElementById('output').innerHTML += `<br>🔢 Total Score of all students: <strong>${total}</strong>`;
+    }
+  </script>
+</body>
+</html>

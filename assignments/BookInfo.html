@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Details</title>
+</head>
+<body>
+  <h2>Book Info</h2>
+  <button onclick="displayBookInfo()">Show Book Info</button>
+  <p id="output"></p>
+
+  <script>
+    function displayBookInfo() {
+      // Example book object with some missing fields
+      const book = {
+        title: "11 rules for life",
+        author: "Chetan bhagat",
+        year: 2023
+        // year and publisher are missing
+      };
+
+      printBookDetails(book);
+    }
+
+    function printBookDetails(book) {
+      // Handle missing fields with default values
+      const {
+        title = "Unknown Title",
+        author = "Unknown Author",
+        year = "Year Not Provided",
+        publisher = "Rathod publishers"
+      } = book;
+
+      // Display message
+      const message = `Title: ${title}<br>
+                       Author: ${author}<br>
+                       Year: ${year}<br>
+                       Publisher: ${publisher}`;
+
+      document.getElementById("output").innerHTML = message;
+    }
+  </script>
+</body>
+</html>

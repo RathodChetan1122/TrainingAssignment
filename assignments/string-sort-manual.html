@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Strings Without sort()</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    input, button {
+      padding: 10px;
+      width: 300px;
+      margin-top: 10px;
+    }
+    .output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Sort Strings Alphabetically (Without Using sort())</h2>
+
+  <label for="stringInput">Enter strings (comma-separated):</label><br>
+  <input type="text" id="stringInput" placeholder="e.g., banana, apple, mango"><br>
+  <button onclick="handleSort()">Sort Strings</button>
+
+  <div class="output">
+    <p><strong>Original Array:</strong> <span id="originalArray"></span></p>
+    <p><strong>Sorted Array:</strong> <span id="sortedArray"></span></p>
+  </div>
+
+  <script>
+    // Function to sort an array of strings without using sort()
+    function customStringSort(arr) {
+      const n = arr.length;
+      for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+          if (arr[j].toLowerCase() > arr[j + 1].toLowerCase()) {
+            // Swap
+            const temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+          }
+        }
+      }
+      return arr;
+    }
+
+    function handleSort() {
+      const input = document.getElementById("stringInput").value;
+      const original = input.split(',').map(item => item.trim());
+
+      const sorted = customStringSort([...original]); // clone to keep original
+
+      document.getElementById("originalArray").textContent = `[ ${original.join(", ")} ]`;
+      document.getElementById("sortedArray").textContent = `[ ${sorted.join(", ")} ]`;
+    }
+  </script>
+
+</body>
+</html>

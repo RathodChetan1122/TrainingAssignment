@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Object</title>
+</head>
+<body>
+  <h2>Library System</h2>
+
+  <button onclick="Clicktoaddsamples()">click to add Books</button>
+  <button onclick="showBooks()">List All Books</button>
+
+  <div id="output"></div>
+
+  <script>
+    // Library object
+    const library = {
+      books: [],
+
+      // Method to add a book
+      addBook(book) {
+        this.books.push(book);
+      },
+
+      // Method to list all books
+      listBooks() {
+        if (this.books.length === 0) {
+          return "Library is empty.";
+        }
+
+        return this.books.map((book, index) => {
+          const { title = "Unknown", author = "Unknown", year = "N/A", publisher = "N/A" } = book;
+          return `${index + 1}. Title: ${title}, Author: ${author}, Year: ${year}, Publisher: ${publisher}`;
+        }).join("<br>");
+      }
+    };
+
+    // Add sample books to library
+    function Clicktoaddsamples() {
+      library.addBook({ title: "1984", author: "George Orwell", year: 1949, publisher: "Secker & Warburg" });
+      library.addBook({ title: "The Alchemist", author: "Paulo Coelho" }); // year and publisher missing
+      document.getElementById("output").innerHTML = "Sample books added to the library.";
+    }
+
+    // Show list of books
+    function showBooks() {
+      const result = library.listBooks();
+      document.getElementById("output").innerHTML = result;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Second Highest Rank Student</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    ul {
+      list-style-type: disc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Second Highest Rank Student(s)</h2>
+  <ul id="result"></ul>
+
+  <script>
+    const students = [
+      { name: "Alice", marks: 85 },
+      { name: "Bob", marks: 92 },
+      { name: "Charlie", marks: 85 },
+      { name: "David", marks: 95 },
+      { name: "Eve", marks: 92 }
+    ];
+
+    function findSecondHighestStudents(students) {
+      if (students.length < 2) return [];
+
+      // Get unique marks and sort descending
+      const uniqueMarks = [...new Set(students.map(s => s.marks))].sort((a, b) => b - a);
+      if (uniqueMarks.length < 2) return [];
+
+      const secondHighestMark = uniqueMarks[1];
+
+      return students.filter(s => s.marks === secondHighestMark);
+    }
+
+    const secondHighest = findSecondHighestStudents(students);
+
+    const resultList = document.getElementById("result");
+
+    if (secondHighest.length === 0) {
+      resultList.innerHTML = "<li>No second highest rank found.</li>";
+    } else {
+      secondHighest.forEach(student => {
+        const li = document.createElement("li");
+        li.textContent = `${student.name} (Marks: ${student.marks})`;
+        resultList.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>

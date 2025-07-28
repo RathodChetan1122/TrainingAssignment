@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Season from Month</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 250px;
+      display: block;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Find Season by Month</h2>
+
+  <label for="monthInput">Enter Month Name (e.g. March):</label>
+  <input type="text" id="monthInput" placeholder="Enter month name">
+  <button onclick="showSeason()">Get Season</button>
+
+  <div class="output" id="seasonResult"></div>
+
+  <script>
+    function getSeason(month) {
+      switch (month.toLowerCase()) {
+        case 'november':
+        case 'December':
+        case 'January':
+          return 'Winter';
+        case 'february':
+        case 'march':
+        case 'april':
+          return 'Spring';
+        case 'may':
+        case 'june':
+        case 'july':
+          return 'Summer';
+        case 'august':
+        case 'september':
+        case 'october':
+          return 'Autumn';
+        default:
+          return 'Invalid month name. Please enter a full month name like "March".';
+      }
+    }
+
+    function showSeason() {
+      const input = document.getElementById("monthInput").value.trim();
+      const result = getSeason(input);
+      document.getElementById("seasonResult").textContent = `Season: ${result}`;
+    }
+  </script>
+
+</body>
+</html>
